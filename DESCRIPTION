@@ -5,4 +5,5 @@ Author: Xiaochun Li
 Description:  A package for processing protein mass spectrometry data.
 Maintainer: Xiaochun Li <xiaochun@jimmy.harvard.edu>
 License: GPL
-Packaged: Fri Mar 12 17:19:09 2004; xiaochun
+ReleaseLevel: devel
+
