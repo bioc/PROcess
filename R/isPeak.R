@@ -1,6 +1,6 @@
 isPeak <- function(f,SoN=2,span=81, sm.span=11,
 	plot=FALSE, add=FALSE, zerothrsh=2, area.w=0.003,
-	ratio=.2){
+	ratio=.2, ...){
 
 	parea <- function(f, pt, eps=area.w) {
         	x <- f[,1]
@@ -32,7 +32,7 @@ isPeak <- function(f,SoN=2,span=81, sm.span=11,
 	  if (add) {
 		lines(mz, sm, col="cyan")
 		points(mz[peak],sm[peak], col="orange")
-	  } else specZoom(pks)
+	  } else specZoom(pks, ...)
         }
 	return(pks)
 }

@@ -5,12 +5,15 @@
 Function for plotting an object returned by \code{isPeak}.
 }
 \usage{
-specZoom(pks, xlim = NULL, cols = c("cyan", "red", "black"))
+specZoom(pks, xlim = NULL, cols = c("cyan", "red", "black"), ...)
 }
 \arguments{
   \item{pks}{an object (a list) returned by \code{isPeak}.}
-  \item{xlim}{a range of m/z values over which a zoomed-in view of the spectrum is desired.}
-  \item{cols}{a vector of color specification for the smooth (signal), peaks and local noise.}
+  \item{xlim}{a range of m/z values over which a zoomed-in view of
+    the spectrum is desired.}
+  \item{cols}{a vector of color specification for the smooth (signal),
+    peaks and local noise.}
+  \item{\dots}{further arguments that get passed on to \code{plot}.}
 }
 \examples{
 example(isPeak)

@@ -6,7 +6,7 @@ Find local maxima of a spectrum.
 }
 \usage{
 isPeak(f,SoN = 2,span = 81,sm.span=11,plot=FALSE,add = FALSE,
-zerothrsh=2,area.w = 0.003, ratio = 0.2) }
+zerothrsh=2,area.w = 0.003, ratio = 0.2, ...) }
 \arguments{
   \item{f}{a matrix of two columns representing a spectrum, with the 
 		first column the m/z value and second the intensity}
@@ -21,8 +21,10 @@ zerothrsh=2,area.w = 0.003, ratio = 0.2) }
   \item{plot}{logical, plot the smoothed spectrum and peaks? }
   \item{add}{add to the existing raw and baseline-substracted plot?}
   \item{zerothrsh}{ignore peaks whose intensity values are below zerothrsh.}
-  \item{area.w}{the neighbourhood of a peak m/z,  mz*(1-area.w, 1+area.w).} to calculate area of the peak,
-  \item{ratio}{if area/max(area) > ratio, the peak is retained.} 
+  \item{area.w}{the neighbourhood of a peak m/z,
+     mz*(1-area.w, 1+area.w).} to calculate area of the peak,
+  \item{ratio}{if area/max(area) > ratio, the peak is retained.}
+  \item{\dots}{further arguments that get passed on to \code{plot}.}
 }
 \details{
 A spectrum is smoothed first using the nearest `span' 

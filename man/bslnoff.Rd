@@ -14,7 +14,7 @@ bslnoff(f, breaks = 200, qntl = 0, method = c("loess", "approx"), bw = 0.005, pl
   \item{method}{"loess" or "approx" (linear interpolation).}
   \item{bw}{the bandwidth to be passed to loess.}
   \item{plot}{TRUE or FALSE, if true, it will plot the raw spectrum, theestimated baseline and the baseline substracted spectrum.}
-  \item{\dots}{parameters for plot.}
+  \item{\dots}{Further parameters that get passed on to plot.}
 }
 \value{
 a matrix of two columns: the first column being the M/Z values same as 

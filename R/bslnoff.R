@@ -34,7 +34,7 @@ function(f,breaks=200, qntl=0,
 		if (is.null(ylim)) ylim <- c(min(bseoff[,2]), 
                         		max(f[,2]))
 		else ylim <- eval(ylim, parent.frame())
-           	plot(f,type="l", col="green",ylim=ylim)
+           	plot(f,type="l", col="green",ylim=ylim,...)
                 lines(f[,1],bsln, col="red")
                 lines(bseoff, col="blue")
                 abline(h=0, col="gray")

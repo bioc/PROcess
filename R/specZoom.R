@@ -1,14 +1,14 @@
 # color order: sm, pk, vly, nse
 
 specZoom <- function(pks, xlim=NULL, cols=c("cyan","red",
-	"black")) {
+	"black"), ...) {
 
         mz <- pks$mz
         smooth <- pks$smooth
         peak <- pks$peak
 
         plot(mz, smooth, type="l",col=cols[1], xlim=xlim,
-               xlab="m/z", ylab="smoothed spectrum")
+               xlab="m/z", ylab="smoothed spectrum", ...)
         points(mz[peak], smooth[peak],col=cols[2])
 	lines(mz,pks$sigmas, col=cols[3])
 
