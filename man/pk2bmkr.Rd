@@ -38,12 +38,15 @@ computation. Biometrika, 81:618--623.}
 }
 \examples{
 example(getPeaks)
-testBio <- pk2bmkr("testpeakinfo.csv", testM, 
-	"testbiomarker.csv")
+bmkfile <- paste(tempdir(),"testbiomarker.csv",sep="/")
+testBio <- pk2bmkr(peakfile, rtM, bmkfile)
 
 ## plot biomarker intensities of the 2 spectra
 
-mzs <- getMzs(testBio)
-matplot(mzs, t(testBio), type="l", col=c("red", "green"))
+mzs <- as.numeric(rownames(rtM))
+matplot(mzs, rtM, type="l", xlim=c(1000, 10000))
+
+bks <- getMzs(testBio)
+abline(v=bks, col="green")
 }
 \keyword{nonparametric}

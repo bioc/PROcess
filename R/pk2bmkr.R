@@ -11,7 +11,7 @@ pk2bmkr <- function(peakinfofile, bseoffM, bmkfile,
 	tmp <- cbind(mzs-delta, mzs+delta)
 	N <- dim(tmp)[1]
 	cliqs <- Maclist(tmp)
-	bmkrs <- apply(MLEintvl(tmp, ml=cliqs), 1, mean)	
+	bmkrs <- rowMeans(MLEintvl(tmp, ml=cliqs))	
 	nmkrs <- length(bmkrs)
 	SPECTRUM <- unique(pkfSpec)
 	nSpec <- length(SPECTRUM)
@@ -35,7 +35,7 @@ pk2bmkr <- function(peakinfofile, bseoffM, bmkfile,
 			bM[fill, i] <- vfill[fill]
 		}
 	}
-	keep <- apply(tM, 2, sum)/nSpec > p.fltr 
+	keep <- colSums(tM)/nSpec >= p.fltr 
 	bM <- bM[,keep]
         write.table(data.frame(bM),file=bmkfile, 
 	sep=",", row.names=T)

@@ -5,7 +5,8 @@
 For given threshold criteria, find peaks.
 }
 \usage{
-getPeaks(bseoffM, peakinfofile,SoN = 2,span = 81,sm.span=11)
+getPeaks(bseoffM, peakinfofile,SoN = 2,span = 81,sm.span=11, 
+zerothrsh=2, area.w = 0.003, ratio = 0.2)
 }
 \arguments{
   \item{bseoffM}{a matrix holding the baseline-substracted
@@ -17,6 +18,9 @@ getPeaks(bseoffM, peakinfofile,SoN = 2,span = 81,sm.span=11)
   \item{SoN}{see isPeak().}
   \item{span}{see isPeak().}
   \item{sm.span}{see isPeak().}
+  \item{zerothrsh}{ignore peaks whose intensity values are below zerothrsh.}
+   \item{area.w}{see isPeak().}
+  \item{ratio}{see isPeak().}
 }
 \details{
 For given threshold criteria, detect peaks and write the 
@@ -29,7 +33,8 @@ relative intensity occurs (Substance.Mass).
 \author{Xiaochun Li}
 \seealso{\code{\link{rmBaseline}}}
 \examples{
-example(rmBaseline)
-getPeaks(testM, "testpeakinfo.csv")
+example(renorm)
+peakfile <- paste(tempdir(),"testpeakinfo.csv", sep="/")
+getPeaks(rtM, peakfile)
 }
 \keyword{nonparametric}

@@ -1,5 +1,4 @@
-%\VignetteIndexEntry{HOWTO use PROcess}
-%\VignettePackage{PROcess}
+%\VignetteIndexEntry{HOWTO: PROcess}
 \documentclass[12pt]{article}
 
 \usepackage{amsmath,pstricks}
@@ -27,6 +26,10 @@
 \author{}
 \maketitle
 \tableofcontents
+
+% library(tools)
+% Rnwfile<- file.path("~/PROcess/inst/doc","howtoprocess.Rnw")
+% Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
 
 \section{Introduction}
 The {\tt PROcess} package contains a collection of functions for 
@@ -81,12 +84,22 @@ a set of 2 spectra.
 \subsection{Apply baseline subtraction to a set of spectra}
 <<rmBaselineBatch>>=
 testdir <- system.file("Test", package = "PROcess")
-rmBaseline(testdir, "testM", paste(getwd(),"test.rda",sep="/"))
+rmBaseline(testdir, "testM")
+@
+
+\subsection{Renormalize spectra}
+Suppose we want to normalize a set of spectra to their median 
+AUC (Area Under the Curve), where an AUC is calculated for
+m/z values greater than a cutoff point, 1500.
+
+<<renorm>>=
+rtM <- renorm(testM, cutoff=1500)
 @
 
 \subsection{Identify peaks of spectra}
 <<getPeaksBatch>>=
-getPeaks(testM, "testpeakinfo.csv")
+peakfile <- paste(tempdir(), "testpeakinfo.csv", sep = "/")
+getPeaks(testM, peakfile)
 @
 
 \subsection{Quality assessment}
@@ -95,7 +108,7 @@ noisy and have hardly any peaks. Function {\tt quality}
 computes three parameters {\tt Quality}, {\tt Retain} and 
 {\tt peak} for assessing a set of spectra.
 <<QC>>=
-qualRes <- quality(testdir, "testpeakinfo.csv", cutoff=1500)
+qualRes <- quality(testdir, peakfile, cutoff=1500)
 print(qualRes)
 @
 
@@ -134,11 +147,13 @@ its value is set to be the value of its nearest neighbour.
 
 
 <<pk2bmkr,fig=T>>=
-testBio <- pk2bmkr("testpeakinfo.csv", testM, 
-             "testbiomarker.csv")
-mzs <- getMzs(testBio)
-matplot(mzs, t(testBio), type="l", col=c("red", "green"),
-	main="Protobiomarkers")
+bmkfile <- paste(tempdir(), "testbiomarker.csv", sep = "/")
+testBio <- pk2bmkr(peakfile, testM, bmkfile)
+mzs <- as.numeric(rownames(rtM))
+matplot(mzs, rtM, type = "l", xlim = c(1000, 10000),
+ylab="intensities", main="proto-biomarkers")
+bks <- getMzs(testBio)
+abline(v = bks, col = "green")
 @
 \bibliography{howtoprocess}
 

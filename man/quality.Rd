@@ -33,6 +33,6 @@ A matrix with three named columns, 'Quality','Retain' and 'peak', with spectrum 
 \author{Xiaochun Li}
 \examples{
 example(getPeaks)
-qualRes <- quality(testdir, "testpeakinfo.csv", cutoff=1500)
+qualRes <- quality(testdir, peakfile, cutoff=1500)
 }
 \keyword{math}

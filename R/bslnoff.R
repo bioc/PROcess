@@ -17,6 +17,8 @@ function(f,breaks=200, qntl=0,
 			breaks=breaks)
         	unlist(lapply(split(y, bc), trnc, prob=prob))
 	}
+	dots <- match.call(expand.dots=TRUE)
+	ylim <- dots$ylim
 	bgs <- segbg(f, prob=qntl,breaks=breaks)
         if (!method %in% c("loess","approx")) 
 		stop("**no such method**")
@@ -29,8 +31,10 @@ function(f,breaks=200, qntl=0,
         }
 	bseoff <- cbind(f[,1], f[,2]-bsln)
  	if (plot) {	
-           	plot(f,type="l",ylim=c(min(bseoff), max(f[,2])), 
-			col="green",...)
+		if (is.null(ylim)) ylim <- c(min(bseoff[,2]), 
+                        		max(f[,2]))
+		else ylim <- eval(ylim, parent.frame())
+           	plot(f,type="l", col="green",ylim=ylim)
                 lines(f[,1],bsln, col="red")
                 lines(bseoff, col="blue")
                 abline(h=0, col="gray")

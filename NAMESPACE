@@ -1,4 +1,4 @@
 export(bslnoff, isPeak, pk2bmkr, getMzs, lnn, quality,
      sigma, getPeaks,  noise, read.files, specZoom,
-	intg, peaks, rmBaseline)
+	intg, peaks, rmBaseline, renorm)
 

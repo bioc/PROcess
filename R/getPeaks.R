@@ -1,5 +1,6 @@
 getPeaks<-function(bseoffM, peakinfofile, SoN = 2, 
-	span = 81, sm.span=11) {
+	span = 81, sm.span=11,zerothrsh=2,area.w=0.003,
+        ratio=.2) {
 
 	mzs <- as.numeric(rownames(bseoffM))	
 	n <- dim(bseoffM)[2]
@@ -8,7 +9,8 @@ getPeaks<-function(bseoffM, peakinfofile, SoN = 2,
 	for (j in 1:n) {
 		bseoff <- cbind(mzs,bseoffM[,j])
 		pks <- isPeak(bseoff,SoN=SoN,span=span,
-			sm.span=sm.span)
+			sm.span=sm.span, zerothrsh=zerothrsh,
+			area.w=area.w, ratio=ratio)
 		cnts[j] <- sum(pks$peak)
 		is.peak <- pks$peak
 	        if (j >1) {

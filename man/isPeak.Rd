@@ -5,7 +5,8 @@
 Find local maxima of a spectrum.
 }
 \usage{
-isPeak(f,SoN = 2,span = 81,sm.span=11,plot=FALSE,add = FALSE) }
+isPeak(f,SoN = 2,span = 81,sm.span=11,plot=FALSE,add = FALSE,
+zerothrsh=2,area.w = 0.003, ratio = 0.2) }
 \arguments{
   \item{f}{a matrix of two columns representing a spectrum, with the 
 		first column the m/z value and second the intensity}
@@ -19,6 +20,9 @@ isPeak(f,SoN = 2,span = 81,sm.span=11,plot=FALSE,add = FALSE) }
 	points to the left and right of a point being smoothed}
   \item{plot}{logical, plot the smoothed spectrum and peaks? }
   \item{add}{add to the existing raw and baseline-substracted plot?}
+  \item{zerothrsh}{ignore peaks whose intensity values are below zerothrsh.}
+  \item{area.w}{the neighbourhood of a peak m/z,  mz*(1-area.w, 1+area.w).} to calculate area of the peak,
+  \item{ratio}{if area/max(area) > ratio, the peak is retained.} 
 }
 \details{
 A spectrum is smoothed first using the nearest `span' 
@@ -36,7 +40,7 @@ A data frame with five components, `peak',`smooth',`mz' and
      `sigmas', each of length the number of rows in `f'. 
      `peak' is logical indicating whethere there is a peak or not 
      (Y/N), `smooth' the smooth of the spectrum, `mz' the same as 
-     `f[,1]' and `sigmas' the estimates of local variation.  
+     `f[,1]', `sigmas' the estimates of local variation and `area' the area associated with each peak after the first pass.  
 }
 \author{Xiaochun Li}
 \examples{

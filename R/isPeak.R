@@ -1,5 +1,12 @@
 isPeak <- function(f,SoN=2,span=81, sm.span=11,
-	plot=FALSE, add=FALSE){
+	plot=FALSE, add=FALSE, zerothrsh=2, area.w=0.003,
+	ratio=.2){
+
+	parea <- function(f, pt, eps=area.w) {
+        	x <- f[,1]
+        	sum(f[x <=pt*(1+eps) & x>=pt*(1-eps),2])
+	} # area within .3% of peak
+
         n <- dim(f)[1]
 	mz <- f[,1]
         lo <- lnn(f[,2], span=span, sm.span=sm.span)
@@ -10,14 +17,16 @@ isPeak <- function(f,SoN=2,span=81, sm.span=11,
 
         sigmas <- lo$s
 
-	zerothrsh <- mad(f[,2]) * 1.64
-
         peak <- ispeak &  sm > zerothrsh & sm > SoN * sigmas
 
-	# locate valleys for each peak
+	area <- sapply(mz[peak], parea, f=cbind(mz,sm)[!peak,])
+	As <- rep(NA, length(peak))
+	As[peak] <- area
+	
+	peak[peak] <- peak[peak] & area/ max(area) > ratio
 
 	pks <- data.frame(peak=peak, smooth=sm, mz=mz, 
-		sigmas=sigmas)
+		sigmas=sigmas, area=As)
 	
         if (plot) {
 	  if (add) {
