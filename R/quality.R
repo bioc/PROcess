@@ -1,6 +1,6 @@
-quality <- function(csvfldr, peakinfofile, cutoff) {
-   Q.R <- function(fname,cutoff) {
-        tmp <- read.files(fname)
+quality <- function(Ma, peakinfofile, cutoff) {
+   Q.R <- function(y, mzs, cutoff) {
+        tmp <- cbind(mzs, y)
         dat <- tmp[tmp[,1]>cutoff,]
         n <- dim(dat)[1]
         nse <- noise(dat[,2], span=5)
@@ -11,11 +11,10 @@ quality <- function(csvfldr, peakinfofile, cutoff) {
         Retain <- sum(dat[,2]>5*nse.evlp)/n
         return(c(Quality=Quality, Retain=Retain))
    }
-        fs <- list.files(path=csvfldr, pattern="*csv*") 
-        qrs <- t(sapply(paste(csvfldr,fs,sep="/"), Q.R, 
-		cutoff=cutoff))
+	mzs <- as.numeric(rownames(Ma))
+        qrs <- t(apply(Ma, 2, Q.R, mzs=mzs, cutoff=cutoff))
         fns <- basename(dimnames(qrs)[[1]])
-        pks <- read.csv(peakinfofile, as.is=T)
+        pks <- read.csv(peakinfofile, as.is=TRUE)
         ns <- sapply(split(pks$"Peak.", pks$"Spectrum.Tag"), 
                 length)
         peak <- ns / mean(ns)

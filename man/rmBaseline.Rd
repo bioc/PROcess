@@ -5,14 +5,10 @@
 Baseline subtraction from each raw spectrum in 'fldr'.
 }
 \usage{
-rmBaseline(fldr, outputname = "baseoffM", bseoffrda = NULL, breaks = 200, qntl = 0, method = "loess", bw = 0.1, SpecNames = list.files(fldr, pattern = "*csv*"))
+rmBaseline(fldr, bseoffrda = NULL, breaks = 200, qntl = 0, method = "loess", bw = 0.1, SpecNames = list.files(fldr, pattern = "*csv*"))
 }
 \arguments{
   \item{fldr}{a path to where the raw spectra are stored}
-  \item{outputname}{name of the matrix holding the
-          baseline-substracted spectra, a matrix with 
-	  row-names as the m/z values and column-names 
-	  as the spectrum names.}
   \item{bseoffrda}{ optional; name of the file (with 
 	extension .rda) where the baseline-substracted 
 	spectra, a matrix with row-names as the m/z  values 
@@ -34,6 +30,6 @@ rmBaseline(fldr, outputname = "baseoffM", bseoffrda = NULL, breaks = 200, qntl =
 \seealso{`bslnoff'.}
 \examples{
 testdir <- system.file("Test", package = "PROcess")
-rmBaseline(testdir, "testM")
+testM <- rmBaseline(testdir)
 }
 \keyword{nonparametric}

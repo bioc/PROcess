@@ -5,10 +5,10 @@
 Compute three quality parameters for a set of spectra.
 }
 \usage{
-quality(csvfldr, peakinfofile, cutoff)
+quality(Ma, peakinfofile, cutoff)
 }
 \arguments{
-  \item{csvfldr}{a path to where the baseline-subtracted spectra are stored.}
+  \item{Ma}{a Matrix where the baseline-subtracted spectra are stored column wise.}
   \item{peakinfofile}{a `.csv' file in the same format as 
 	Ciphergen's peak info file, with 5 columns data. See Details of \code{getPeaks}.}
   \item{cutoff}{The point in m/z below which spectra are cutoff.}
@@ -29,10 +29,9 @@ A spectrum is considered to be of poor quality if Quality<0.4, Retain<0.1 and pe
 \value{
 A matrix with three named columns, 'Quality','Retain' and 'peak', with spectrum file names as row names.
 }
-\references{Mani Refn? }
 \author{Xiaochun Li}
 \examples{
 example(getPeaks)
-qualRes <- quality(testdir, peakfile, cutoff=1500)
+qualRes <- quality(testM, peakfile, cutoff=1500)
 }
 \keyword{math}

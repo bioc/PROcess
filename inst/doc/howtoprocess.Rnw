@@ -85,7 +85,7 @@ a set of 2 spectra.
 \subsection{Apply baseline subtraction to a set of spectra}
 <<rmBaselineBatch>>=
 testdir <- system.file("Test", package = "PROcess")
-rmBaseline(testdir, "testM")
+testM <- rmBaseline(testdir)
 @
 
 \subsection{Renormalize spectra}
@@ -109,7 +109,7 @@ noisy and have hardly any peaks. Function {\tt quality}
 computes three parameters {\tt Quality}, {\tt Retain} and 
 {\tt peak} for assessing a set of spectra.
 <<QC>>=
-qualRes <- quality(testdir, peakfile, cutoff=1500)
+qualRes <- quality(testM, peakfile, cutoff=1500)
 print(qualRes)
 @
 
