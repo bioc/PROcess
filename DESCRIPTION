@@ -1,0 +1,7 @@
+Package: PROcess
+Title: Ciphergen SELDI-TOF Processing
+Version: 0.5
+Author: Xiaochun Li
+Description:  A package for processing protein mass spectrometry data.
+Maintainer: Xiaochun Li <xiaochun@jimmy.harvard.edu>
+License: GPL
