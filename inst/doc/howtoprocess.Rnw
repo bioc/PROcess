@@ -1,4 +1,5 @@
 %\VignetteIndexEntry{HOWTO PROcess}
+%\VignettePackage{PROcess}
 \documentclass[12pt]{article}
 
 \usepackage{amsmath,pstricks}
@@ -22,7 +23,7 @@
 \begin{document}
 
 @
-\title{HowTo Use the Bioconductor {\tt PROcess} package}
+\title{HowTo Use the Bioconductor PROcess package}
 \author{}
 \maketitle
 \tableofcontents
