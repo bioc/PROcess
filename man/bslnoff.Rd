@@ -23,11 +23,11 @@ the input, and the second column being the baseline substracted spectra.
 \author{Xiaochun Li}
 \examples{
 fdat <- system.file("spectra/ssc", package="PROcess")
-fs <- list.files(fdat, pattern="*csv*", full.names=T)
+fs <- list.files(fdat, pattern="*csv*", full.names=TRUE)
 j <- sample(1:length(fs), 1)
 f1 <- read.csv(gzfile(fs[j]))
 fcut <- f1[f1[,1]>0,]
-bseoff <-bslnoff(fcut,method="loess",plot=T, bw=0.1)
+bseoff <-bslnoff(fcut,method="loess",plot=TRUE, bw=0.1)
 title(basename(fs[j]))
 }
 \keyword{function}
