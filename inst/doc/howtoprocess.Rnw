@@ -100,7 +100,7 @@ rtM <- renorm(testM, cutoff=1500)
 \subsection{Identify peaks of spectra}
 <<getPeaksBatch>>=
 peakfile <- paste(tempdir(), "testpeakinfo.csv", sep = "/")
-getPeaks(testM, peakfile)
+getPeaks(rtM, peakfile)
 @
 
 \subsection{Quality assessment}
@@ -134,28 +134,98 @@ f the m/z value. Once the peaks are detected, we align the
 peaks by first generating an interval of size $0.3\%$ of 
 the m/z value which centers at m/z for each m/z where a peak is 
 detected. We treat those m/z
-intervals as interval censored data. Maximum likelihood 
-estimate
-of the distribution of survival times conditional upon the 
-observed intervals  can be computed by the method of
-\cite{Gent:Geye:1994}. Protobiomarkers are computed as 
-the center
-of the MLE intervals. For a spectrum whose peaks are in the
-clique that define a protobiomarker, its value at this 
-protobiomarker
-is set to be the maximum of the peaks in the clique, otherwise
-its value is set to be the value of its nearest neighbour.
-
+intervals as interval censored data.  We treat those intervals as a 
+partially ordered set and
+ use the locations of the maximal cliques to define the
+ locations of the peaks \cite{Gent:Van:2001}.
+ We call these aligned peaks (across spectra) proto-biomarkers
+ and use the centers of the resulting intervals as the
+ locations of the aligned peaks. For each spectrum we
+ determine which actual peaks are represented by an aligned
+peak (proto-biomarker) and use the maximum of those as the
+ height of the proto-biomarker. If there were no peaks then
+we use the maximum value within the resulting interval.
+ 
 
 <<pk2bmkr,fig=T>>=
 bmkfile <- paste(tempdir(), "testbiomarker.csv", sep = "/")
-testBio <- pk2bmkr(peakfile, testM, bmkfile)
+testBio <- pk2bmkr(peakfile, rtM, bmkfile)
 mzs <- as.numeric(rownames(rtM))
 matplot(mzs, rtM, type = "l", xlim = c(1000, 10000),
 ylab="intensities", main="proto-biomarkers")
 bks <- getMzs(testBio)
+print(round(bks))
 abline(v = bks, col = "green")
 @
+\section{An alternative way to obtain proto-biomarkers}
+\cite{baggMean} propose an alternative way for peak
+detection using the average spectrum of all spectra of a given
+experiment. Their algorithm is comprised of the following steps,
+(1) compute the mean of all raw spectra, (2) de-noise, baseline
+correct and find peaks by locating all local maxima in the mean
+spectrum, and (3) quantify the identified peaks in the
+individual spectra. The major advantage of this approach is the 
+simplicity and the speed to arrive at a set of proto-biomarkers in 
+comparison to the approach described in the previous sections to 
+select peaks from individual spectra.
+
+In {\tt PROcess} we adopt the general idea of using mean
+spectrum to locate peaks, but leave the decision to users whether
+they should compute the mean spectrum of the raw spectra, or of
+the smoothed (de-noised), baseline corrected and normalized spectra
+for their experiment at hand. If the steps of baseline-subtraction
+and normalization are done properly, there may be improvement
+in peak detection using the mean spectrum computed from the
+pre-processed spectra.
+
+Our approach comprises the following steps.
+\begin{itemize}
+\item Compute the mean of all raw spectra using {\tt aveSpec},
+or the mean of all pre-processed spectra using standard R function
+{\tt rowMeans}.
+\item Detect peaks of the mean spectrum by {\tt isPeak}.
+\item Align peaks by {\tt align} if there seems to be peak
+      clusters.
+\item Quantify peaks in individual spectra that have been smoothed,
+      baseline-removed and normalized, by {\tt getPeaks2} that
+      locates for each peak the maximum intensity in a neighbourhood
+      of the peak defined by a user-specified precision of peaks.
+\end{itemize}
+
+We now demonstrate this approach to the test data set using
+{\tt PROcess}.  
+
+We execute the following code to compute the mean spectrum.
+<<overallMean>>=
+grandAve <- aveSpec(fs)
+mzs <- grandAve[,1]
+@
+
+Should you wish to compute the mean spectrum of the pre-processed
+spectra, you can do {\tt rowMeans(rtM)} instead, then skip
+the baseline correction step and proceed
+to the peak detection step using {\tt isPeak} . 
+
+We execute the following code to remove baseline, detect
+peaks in the overall mean spectrum and quantify them in individual
+spectra.
+
+<<bslnoffRawMean,fig=T>>=
+grandOff <- bslnoff(grandAve[mzs>0,], method="loess",
+        plot=T, bw=0.1)
+@
+<<RawMeanPeak,fig=T>>=
+grandPkg <- isPeak(grandOff[grandOff[,1]>1500,], zerothrsh=1,
+plot=T, ratio=0.1)
+grandpvec <- round(grandPkg[grandPkg$peak, "mz"])
+print(as.vector(grandpvec))
+@
+
+We can then quantify the peaks by running the following code.
+<<getPeaks2>>=
+grandBmk <- getPeaks2(rtM, grandpvec)
+@
+
 \bibliography{howtoprocess}
 
 \end{document}
