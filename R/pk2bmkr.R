@@ -9,9 +9,9 @@ pk2bmkr <- function(peakinfofile, bseoffM, bmkfile,
 	mzs <- pkf$Substance.Mass
 	delta <- mzs*eps
 	tmp <- cbind(mzs-delta, mzs+delta)
-	N <- dim(tmp)[1]
 	cliqs <- Maclist(tmp)
-	bmkrs <- rowMeans(MLEintvl(tmp, ml=cliqs))	
+	intvls <- MLEintvl(tmp, ml=cliqs)
+	bmkrs <- rowMeans(intvls)	
 	nmkrs <- length(bmkrs)
 	SPECTRUM <- unique(pkfSpec)
 	nSpec <- length(SPECTRUM)
@@ -20,7 +20,7 @@ pk2bmkr <- function(peakinfofile, bseoffM, bmkfile,
 	dimnames(bM) <- list(SPECTRUM,mkrnames)
 	tM <- bM
 	for (i in 1:nmkrs ) {
-		whichRows <- (1:N)[cliqs[[i]]]
+		whichRows <- cliqs[[i]]
 		vals <- sapply(split(pkfInten[whichRows],
 				pkfSpec[whichRows]), max)
 		whichSpecs <- names(vals)
@@ -29,9 +29,15 @@ pk2bmkr <- function(peakinfofile, bseoffM, bmkfile,
 		else {
 			bM[whichSpecs,i] <- vals
 			fill <- ! (SPECTRUM %in% whichSpecs)
-			dis <- abs(bsemz - bmkrs[i])
-			nearest <- dis==min(dis)
-			vfill <- bseoffM[nearest,]
+			whichmz <- bsemz >= intvls[i,1] &
+					bsemz <= intvls[i,2]
+			if(sum(whichmz)<1) {
+			  dis <- abs(bsemz-bmkrs[i])
+			  whichmz <- dis==min(dis)
+			}
+			if(sum(whichmz)>1) vfill <-
+			  apply(bseoffM[whichmz,],2,max)
+			else vfill <- bseoffM[whichmz,]
 			bM[fill, i] <- vfill[fill]
 		}
 	}
