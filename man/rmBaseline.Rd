@@ -36,4 +36,4 @@ rmBaseline(fldr, outputname = "baseoffM", bseoffrda = NULL, breaks = 200, qntl =
 testdir <- system.file("Test", package = "PROcess")
 rmBaseline(testdir, "testM", paste(getwd(),"test.rda",sep="/"))
 }
-\keyword{function }
+\keyword{nonparametric}

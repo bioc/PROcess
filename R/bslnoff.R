@@ -1,6 +1,22 @@
 "bslnoff" <-
 function(f,breaks=200, qntl=0,
-		method=c("loess","approx"), bw=0.005, plot=F, ...) {
+		method=c("loess","approx"), bw=0.005, 
+		plot=FALSE, ...) {
+	trnc <- function(y, prob) {
+        	if (prob > 0) {
+        	qs <- quantile(y, probs=prob)
+        	ifelse(y < qs, y, qs)
+        	}
+        	else rep(min(y), length(y))
+	}
+	segbg <- function(f2, prob=0.25, breaks=100) {
+        	x <- f2[,1]
+        	y <- f2[,2]
+		rx <- range(x)
+        	bc <- cut(log10(x+abs(min(x))+0.5), 
+			breaks=breaks)
+        	unlist(lapply(split(y, bc), trnc, prob=prob))
+	}
 	bgs <- segbg(f, prob=qntl,breaks=breaks)
         if (!method %in% c("loess","approx")) 
 		stop("**no such method**")

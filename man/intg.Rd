@@ -8,7 +8,8 @@ This function calculates the integration of y with respect to x.
 intg(y, x)
 }
 \arguments{
-  \item{y,x} y is the vector of function values at x. x does not have to be sorted.
+\item{x}{a vector of real values, not necessarily sorted.} 
+\item{y}{a vector of function values at x.}
 }
 \details{
  (x,y)s are sorted according to ascending x values and then
@@ -20,4 +21,4 @@ x <- seq(0, 1,length=100)
 y <- x^2
 intg(y, x)
 }
-\keyword{function}
+\keyword{math}

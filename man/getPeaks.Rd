@@ -5,7 +5,7 @@
 For given threshold criteria, find peaks.
 }
 \usage{
-getPeaks(bseoffM, peakinfofile,SoN = 2,span = 41,sm.span=11)
+getPeaks(bseoffM, peakinfofile,SoN = 2,span = 81,sm.span=11)
 }
 \arguments{
   \item{bseoffM}{a matrix holding the baseline-substracted
@@ -32,4 +32,4 @@ relative intensity occurs (Substance.Mass).
 example(rmBaseline)
 getPeaks(testM, "testpeakinfo.csv")
 }
-\keyword{function}
+\keyword{nonparametric}

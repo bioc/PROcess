@@ -14,5 +14,4 @@ getMzs(df)
 \value{
 A numeric vector.
 }
-\author{Xiaochun Li}
-\keyword{function}
+\keyword{utilities}

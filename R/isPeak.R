@@ -1,5 +1,5 @@
 isPeak <- function(f,SoN=2,span=81, sm.span=11,
-	plot=F, add=F){
+	plot=FALSE, add=FALSE){
         n <- dim(f)[1]
 	mz <- f[,1]
         lo <- lnn(f[,2], span=span, sm.span=sm.span)

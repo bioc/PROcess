@@ -46,4 +46,4 @@ testBio <- pk2bmkr("testpeakinfo.csv", testM,
 mzs <- getMzs(testBio)
 matplot(mzs, t(testBio), type="l", col=c("red", "green"))
 }
-\keyword{function}
+\keyword{nonparametric}

@@ -5,7 +5,7 @@
 Find local maxima of a spectrum.
 }
 \usage{
-isPeak(f,SoN = 2,span = 81,sm.span=11,plot=F,add = F) }
+isPeak(f,SoN = 2,span = 81,sm.span=11,plot=FALSE,add = FALSE) }
 \arguments{
   \item{f}{a matrix of two columns representing a spectrum, with the 
 		first column the m/z value and second the intensity}
@@ -40,19 +40,8 @@ A data frame with five components, `peak',`smooth',`mz' and
 }
 \author{Xiaochun Li}
 \examples{
-fdat <- system.file("spectra/ssc", package="PROcess")
-fs <- list.files(fdat, pattern="*csv*", full.names=T)
-
-j <- 94
-
-f1 <- read.csv(gzfile(fs[j]))
-
-fcut <- f1[f1[, 1] > 0, ]
-
-bseoff <- bslnoff(fcut, method = "loess", plot = T,
-    bw = 0.1)
-
-pkobj <- isPeak(bseoff,span=81,sm.span=11,plot=T)
+example(bslnoff)
+pkobj <- isPeak(bseoff,span=81,sm.span=11,plot=TRUE)
 
 }
-\keyword{function}
+\keyword{nonparametric}
