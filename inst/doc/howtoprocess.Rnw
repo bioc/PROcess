@@ -51,7 +51,7 @@ shows the result of a spectrum with its baseline removed.
 <<bslnoffSingle,fig=T>>=
 library(PROcess)
 fdat <- system.file("Test", package="PROcess")
-fs <- list.files(fdat, pattern="*csv*", full.names=TRUE)
+fs <- list.files(fdat, pattern="\\.*csv\\.*", full.names=TRUE)
 f1 <- read.files(fs[1])
 fcut <- f1[f1[,1]>0,]
 bseoff <-bslnoff(fcut,method="loess",plot=TRUE, bw=0.1)

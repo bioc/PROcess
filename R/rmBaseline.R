@@ -1,8 +1,8 @@
 rmBaseline<- function(fldr, bseoffrda=NULL, breaks=200, 
 	qntl=0,method="loess",bw=0.1, 
-	SpecNames=list.files(fldr,pattern = "*csv*"))  {
+	SpecNames=list.files(fldr,pattern = "\\.*csv\\.*"))  {
 
-	fs <- list.files(fldr,pattern = "*csv*", 
+	fs <- list.files(fldr,pattern = "\\.*csv\\.*", 
 		full.names = T)
 	n <- length(fs)
 	for (j in 1:n) {
