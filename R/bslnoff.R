@@ -34,7 +34,7 @@ function(f,breaks=200, qntl=0,
                 lines(f[,1],bsln, col="red")
                 lines(bseoff, col="blue")
                 abline(h=0, col="gray")
-		loc <- c(quantile(f[,1],.9),max(f[,2]))
+		loc <- c(quantile(f[,1],.8),max(f[,2]))
 		legend(loc[1],loc[2], cex=0.8,
 			legend=c("Raw","Baseline","Processed"), 
                 	pch=19, lty=1,  bty="n",

@@ -22,6 +22,6 @@ specZoom <- function(pks, xlim=NULL, cols=c("cyan","red",
 	ltys <- c(1,0,1)
 
 	legend(loc[1], loc[2], legend =ltxt, pch = pchs, 
-	    lty = ltys,  bty = "n", col = cols)
+	    lty = ltys,  bty = "n", col = cols, cex=0.8)
 }
 
