@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{HOWTO: PROcess}
+%\VignetteIndexEntry{HOWTO PROcess}
 \documentclass[12pt]{article}
 
 \usepackage{amsmath,pstricks}
