@@ -1,4 +1,5 @@
-rmBaseline<- function(fldr, bseoffrda=NULL, breaks=200, 
+rmBaseline<- function(fldr, outputname="baseoffM",
+	bseoffrda=NULL, breaks=200, 
 	qntl=0,method="loess",bw=0.1, 
 	SpecNames=list.files(fldr,pattern = "*csv*"))  {
 
@@ -15,8 +16,8 @@ rmBaseline<- function(fldr, bseoffrda=NULL, breaks=200,
 	}
 	dimnames(bseoffM) <- list(signif(bseoff[,1], 6), 
 					SpecNames)
+	assign(outputname, bseoffM, env=sys.frame())
 	if (!is.null(bseoffrda))
-		save(list=bseoffM, file=bseoffrda)
-	bseoffM
+		save(list=outputname, file=bseoffrda)
 }
 
