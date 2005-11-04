@@ -20,7 +20,7 @@ read.files <- function(fn) {
         
         tmpRead <- readLines(fn)
         tmpRead <- strsplit(tmpRead, ",")
-        tmpMatrix <- matrix(NA, nrow=length(tmpRead), ncol=2)
+        tmpMatrix <- matrix(NA, nrow=length(tmpRead), ncol=length(header))
         for(i in 1:ncol(tmpMatrix)){
             tmpMatrix[,i] <- sapply(tmpRead, function(x) as.numeric(x[i]))
         }
