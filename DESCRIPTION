@@ -8,5 +8,5 @@ Depends: Icens
 biocViews: MassSpectrometry, Proteomics
 Maintainer: Xiaochun Li <xiaochun@jimmy.harvard.edu>
 License: Artistic
-SaveImage: yes
+LazyLoad: yes
 
