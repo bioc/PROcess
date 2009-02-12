@@ -7,7 +7,7 @@ Baseline subtraction from each raw spectrum in 'fldr'.
 \usage{
 rmBaseline(fldr, bseoffrda = NULL, breaks = 200, qntl = 0, 
   method = "loess", bw = 0.1, 
-  SpecNames = list.files(fldr, pattern = "\\.*csv\\.*"))
+  SpecNames = list.files(fldr, pattern = "\\\.*csv\\\.*"))
 }
 \arguments{
   \item{fldr}{a path to where the raw spectra are stored}
