@@ -1,5 +1,15 @@
-export(bslnoff, isPeak, pk2bmkr, getMzs, lnn, quality,
-     sigma, getPeaks,  noise, read.files, specZoom,
-	intg, peaks, rmBaseline, renorm, binning,gelmap,
-	aveSpec, align, getPeaks2, avesd, is.multiple)
+importFrom(graphics, abline, axis, image, legend, lines, plot, points)
 
+importFrom(grDevices, gray)
+
+importFrom(Icens, Maclist, MLEintvl)
+
+importFrom(stats, aggregate, approx, embed, loess, median, quantile,
+           sd)
+
+importFrom(utils, read.csv, write.table)
+
+export(bslnoff, isPeak, pk2bmkr, getMzs, lnn, quality,
+       sigma, getPeaks,  noise, read.files, specZoom,
+       intg, peaks, rmBaseline, renorm, binning,gelmap,
+       aveSpec, align, getPeaks2, avesd, is.multiple)
